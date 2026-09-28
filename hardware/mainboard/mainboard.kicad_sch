@@ -12518,10 +12518,9 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "163c7f41-fdd3-442b-9af9-14c7576e4cb3")
 		(property "Reference" "U1"
-			(at 91.0433 45.72 0)
+			(at 90.932 48.768 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -12530,7 +12529,7 @@
 			)
 		)
 		(property "Value" "ESP32-S3-WROOM-1"
-			(at 91.0433 48.26 0)
+			(at 90.678 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
