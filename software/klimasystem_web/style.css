@@ -1,0 +1,41 @@
+.temperatur{
+    background-color: white;
+    padding:20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    max-width: 320px;
+}
+
+body {
+    background-color: #f4f6f8;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+}
+
+.temperature_value{
+    font-size: 60px;
+    font-weight: 600;
+}
+
+.sidebar {
+    width: 240px;   
+    background-color: #1f2937;
+    color: white;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.main_content {
+    flex: 1;
+}
+
+.layout {
+    display: flex;
+}
+
+.menu_item {
+    padding: 15px;
+    cursor: pointer;    
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
