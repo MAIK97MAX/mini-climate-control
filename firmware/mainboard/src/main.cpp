@@ -5,6 +5,8 @@
 #include <DHT.h>
 #include <WiFi.h>
 #include <WebServer.h>
+#include <ESPmDNS.h>
+#include <LittleFS.h>
 
 #define OLED_SDA 21
 #define OLED_SCL 22
@@ -65,7 +67,13 @@ void drawScreen() {
 }
 
 void handleRoot() {
-  server.send(200, "text/plain", "hello");
+  File f = LittleFS.open("/index.html", "r");
+  if (!f) {
+    server.send(404, "text/plain", "index.html not found");
+    return;
+  }
+  server.streamFile(f, "text/html");
+  f.close();
 }
 
 void handleData() {
@@ -89,6 +97,23 @@ void setup() {
   u8g2.begin();
   drawScreen();
 
+  /*    Initializing LittleFS     */
+
+  if (!LittleFS.begin(true)) {
+    Serial.println("LittleFS mount failed");
+  } else {
+    Serial.println("LittleFS ready");
+  }
+
+  File root = LittleFS.open("/");
+  File file = root.openNextFile();
+  Serial.println("Files in LittleFS:");
+  while (file) {
+    Serial.printf("  %s (%u bytes)\n", file.name(), (unsigned)file.size());
+    file = root.openNextFile();
+  }
+  Serial.println("--- end of list ---");
+
   /*    Initializing WiFI in AP Mode     */
 
   WiFi.mode(WIFI_AP);
@@ -96,8 +121,13 @@ void setup() {
   Serial.print("AP IP address: ");
   Serial.println(WiFi.softAPIP());
 
+  if (MDNS.begin("smartclimate")) {
+    Serial.println("mDNS ready: smartclimate.local");
+  }
+
   server.on("/", handleRoot);
   server.on("/data", handleData);
+  server.serveStatic("/", LittleFS, "/");
   server.begin();
 }
 
