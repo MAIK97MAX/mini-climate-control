@@ -4,30 +4,19 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Smart Climate</title>
-  <style>
-    body  { font-family: sans-serif; background: #111; color: #eee;
-            text-align: center; margin-top: 60px; }
-    .temp { font-size: 80px; }
-    .hum  { font-size: 32px; color: #6cf; }
-  </style>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="temp"><span id="t">--</span>&deg;C</div>
-  <div class="hum"><span id="h">--</span> %</div>
+  <div class="temp"><span id="temp">--</span>&deg;C</div>
+  <div class="hum"><span id="hum">--</span> %</div>
 
-  <script>
-    async function update() {
-      try {
-        const r = await fetch('/data');
-        const d = await r.json();
-        document.getElementById('t').textContent = (d.temp === null) ? '--' : d.temp;
-        document.getElementById('h').textContent = (d.hum  === null) ? '--' : d.hum;
-      } catch (e) {
-        // connection hiccup, try again next time
-      }
-    }
-    update();
-    setInterval(update, 2000);
-  </script>
+  <div class="mode">Mode: <span id=mode>--</span></div>
+  <div class="button">
+    <button onClick="setMode('off')">Off</button>
+    <button onClick="setMode('cooling')">Cooling</button>
+    <button onClick="setMode('heating')">Heating</button>
+  </div>
+
+  <script src="app.js"></script>
 </body>
 </html>

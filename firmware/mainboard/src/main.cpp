@@ -11,15 +11,20 @@
 #define OLED_SDA 21
 #define OLED_SCL 22
 #define DHT_PIN  4
+#define LED_PIN 2
 
 U8G2_SSD1306_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, U8X8_PIN_NONE, OLED_SCL, OLED_SDA);
 DHT dht(DHT_PIN, DHT11);
 
 float lastTemp = NAN;
 float lastHum  = NAN;
+String mode = "off";
 
 WebServer server(80);
 unsigned long lastRead = 0;
+
+unsigned long lastBlink = 0;
+bool ledState = false;
 
 // Raindrop icon, about 9 px wide and 13 px tall, top-left at (x, y)
 void drawDrop(int x, int y) {
@@ -63,6 +68,14 @@ void drawScreen() {
   u8g2.drawStr(hx, 63, humStr);
   drawDrop(hx - 13, 51);
 
+  // ---- Mode: bottom-left corner ----
+  const char* label = "OFF";
+  if (mode == "cooling") label = "COOLING";
+  else if (mode == "heating") label = "HEATING";
+
+  u8g2.setFont(u8g2_font_6x10_tr);
+  u8g2.drawStr(0, 63, label);
+
   u8g2.sendBuffer();
 }
 
@@ -77,7 +90,7 @@ void handleRoot() {
 }
 
 void handleData() {
-  char json[64];
+  char json[96];
   char t[12], h[12];
 
   if (isnan(lastTemp)) strcpy(t, "null");
@@ -86,8 +99,30 @@ void handleData() {
   if (isnan(lastHum))  strcpy(h, "null");
   else                 snprintf(h, sizeof(h), "%.0f", lastHum);  
   
-  snprintf(json, sizeof(json), "{\"temp\":%s,\"hum\":%s}", t, h);  
+  snprintf(json, sizeof(json), "{\"temp\":%s,\"hum\":%s,\"mode\":\"%s\"}", t, h, mode.c_str());  
   server.send(200, "application/json", json);
+}
+
+void handleMode() {
+  Serial.printf("args: %d\n", server.args());
+  for (int i = 0; i < server.args(); i++) {
+    Serial.printf("  %s = %s\n", server.argName(i).c_str(), server.arg(i).c_str());
+  }
+
+  if (!server.hasArg("value")) {
+    server.send(400, "text/plain", "missing value");
+    return;
+  }
+
+  String v = server.arg("value");
+
+  if (v == "off" || v == "cooling" || v == "heating") {
+    mode = v;
+    drawScreen();
+    server.send(200, "text/plain", "ok");
+  } else {
+    server.send(400, "text/plain", "bad value");
+  }
 }
 
 void setup() {
@@ -109,26 +144,33 @@ void setup() {
   File file = root.openNextFile();
   Serial.println("Files in LittleFS:");
   while (file) {
-    Serial.printf("  %s (%u bytes)\n", file.name(), (unsigned)file.size());
+    Serial.printf(" %s (%u bytes)\n", file.name(), (unsigned)file.size());
     file = root.openNextFile();
   }
   Serial.println("--- end of list ---");
 
-  /*    Initializing WiFI in AP Mode     */
+  /*    Initializing WiFI in AP Mode and mDNS     */
 
   WiFi.mode(WIFI_AP);
   WiFi.softAP("SmartClimate", "smartclimate123");
-  Serial.print("AP IP address: ");
+  Serial.print("IP address: ");
   Serial.println(WiFi.softAPIP());
 
   if (MDNS.begin("smartclimate")) {
     Serial.println("mDNS ready: smartclimate.local");
   }
 
+  /*    Initializing Server Functions     */
+
   server.on("/", handleRoot);
   server.on("/data", handleData);
+  server.on("/mode", handleMode);
   server.serveStatic("/", LittleFS, "/");
   server.begin();
+
+  digitalWrite(LED_PIN, HIGH);
+  delay(2000);
+  digitalWrite(LED_PIN, LOW);
 }
 
 void loop() {
