@@ -32,10 +32,11 @@ void drawDrop(int x, int y) {
   u8g2.drawDisc(x + 4, y + 8, 4);
 }
 
+// Draw the entire screen, including temperature, humidity and mode
 void drawScreen() {
   u8g2.clearBuffer();
 
-  // ---- Temperature: big, centered ----
+  // The temperature is drawn in the center of the screen, with a large font
   const int baseline = 44;
   char tempStr[8];
   if (isnan(lastTemp)) snprintf(tempStr, sizeof(tempStr), "--");
@@ -49,7 +50,8 @@ void drawScreen() {
 
   u8g2.drawStr(x, baseline, tempStr);
 
-  // degree sign (small ring near the top of the digits)
+  // Degree sign is drawn as two concentric circles, with a radius of 3 and 2 pixels, respectively
+  // values are hardcoded to position the degree sign correctly relative to the temperature value
   int dx = x + tw + 3 + 3;
   int dy = baseline - 32 + 4;
   u8g2.drawCircle(dx, dy, 3);
@@ -57,7 +59,8 @@ void drawScreen() {
 
   u8g2.drawStr(x + tw + 3 + 8, baseline, "C");
 
-  // ---- Humidity: bottom-right corner with raindrop ----
+  // The Humidity is drawn in the bottom-right corner, with a small drop icon next to it
+  // it calls the drawDrop() function to draw the drop icon, and then draws the humidity value next to it
   char humStr[8];
   if (isnan(lastHum)) snprintf(humStr, sizeof(humStr), "--%%");
   else                snprintf(humStr, sizeof(humStr), "%.0f%%", lastHum);
@@ -66,9 +69,10 @@ void drawScreen() {
   int hw = u8g2.getStrWidth(humStr);
   int hx = 127 - hw;
   u8g2.drawStr(hx, 63, humStr);
-  drawDrop(hx - 13, 51);
+  drawDrop(hx - 13, 51); // values are hardcoded to position the drop icon correctly
 
-  // ---- Mode: bottom-left corner ----
+  // Mode is drawn in the bottom-left corner, with a label depending on the mode
+  // lastly all the buffer is sent to the display
   const char* label = "OFF";
   if (mode == "cooling") label = "COOLING";
   else if (mode == "heating") label = "HEATING";
@@ -79,6 +83,8 @@ void drawScreen() {
   u8g2.sendBuffer();
 }
 
+// This function is called when the client requests the webpage
+// It serves the index.html file from LittleFS. If the file is not found, it returns a 404 error.
 void handleRoot() {
   File f = LittleFS.open("/index.html", "r");
   if (!f) {
@@ -89,6 +95,8 @@ void handleRoot() {
   f.close();
 }
 
+// This function is called when the client requests /data
+// It returns A .json object with the current temperature, humidity and mode
 void handleData() {
   char json[96];
   char t[12], h[12];
@@ -103,12 +111,18 @@ void handleData() {
   server.send(200, "application/json", json);
 }
 
+// This function is called when the client requests /mode?value=...
+// It sets the mode to "off", "cooling" or "heating" and
+// returns a simple "ok" response. If the value is invalid, it returns a 400 error.
 void handleMode() {
+
+  // Simple debug output to the serial monitor, showing the number of arguments and their names and values
   Serial.printf("args: %d\n", server.args());
   for (int i = 0; i < server.args(); i++) {
     Serial.printf("  %s = %s\n", server.argName(i).c_str(), server.arg(i).c_str());
   }
 
+  // If no value is provided, return a 400 error with a message
   if (!server.hasArg("value")) {
     server.send(400, "text/plain", "missing value");
     return;
@@ -116,6 +130,8 @@ void handleMode() {
 
   String v = server.arg("value");
 
+  // Check if the value is valid and set the mode accordingly
+  // If the value is valid, redraw the screen and send a 200 response. If not, send a 400 response.
   if (v == "off" || v == "cooling" || v == "heating") {
     mode = v;
     drawScreen();
@@ -140,6 +156,7 @@ void setup() {
     Serial.println("LittleFS ready");
   }
 
+  // Here every file in the LittleFS root directory is listed, along with its size in bytes.
   File root = LittleFS.open("/");
   File file = root.openNextFile();
   Serial.println("Files in LittleFS:");
@@ -165,7 +182,7 @@ void setup() {
   server.on("/", handleRoot);
   server.on("/data", handleData);
   server.on("/mode", handleMode);
-  server.serveStatic("/", LittleFS, "/");
+  server.serveStatic("/", LittleFS, "/"); // must come last otherwise it will override the other handlers
   server.begin();
 
   digitalWrite(LED_PIN, HIGH);
@@ -173,6 +190,10 @@ void setup() {
   digitalWrite(LED_PIN, LOW);
 }
 
+// Main action loop, It handles the client requests 
+// and reads the DHT sensor every 2 seconds
+// If the reading is successful, it updates the lastTemp and lastHum variables
+// and redraws the screen. If the reading fails, it keeps the last good values and prints an error message in the serial monitor.
 void loop() {
   server.handleClient();
 
