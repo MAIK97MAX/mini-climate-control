@@ -1,44 +1,188 @@
-<!DOCTYPE html>
-<html lang="de">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>Klimasystemm</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-
 <body>
+
+    <div class="layout">
+
+        <aside class="sidebar">
+
+            <div class="brand">
+                <div class="brand_logo">MMD</div>
+
+                <div>
+                    <h2 class="sidebar_title">Raumklima</h2>
+                    <p class="brand_subtitle">Smart Climate Control</p>
+                </div>
+            </div>
+
+            <nav class="menu">
+                <button class="menu_item active">Dashboard</button>
+                <button class="menu_item">Steuerung</button>
+                <button class="menu_item">Messwerte</button>
+                <button class="menu_item">Einstellungen</button>
+            </nav>
+
+            <div class="sidebar_status">
+                <span class="status_dot"></span>
+                System online
+            </div>
+
+        </aside>
+
+
+        <main class="main_content">
+
+            <header class="topbar">
+
+                <p>Raumklima-System</p>
+
+                <div class="system_active">
+                    <span class="status_dot"></span>
+                    System aktiv
+                </div>
+
+            </header>
+
+
+            <div class="content">
+
+                <section class="page_header">
+                    <p class="eyebrow">ÜBERSICHT</p>
+                    <h1>Dashboard</h1>
+                    <p>Aktueller Zustand und Steuerung des Raumklimas.</p>
+                </section>
+
+
+                <!-- HAUPTWERTE -->
+
+                <section class="main_values">
+
+                    <div class="card">
+                        <p class="card_title">Temperatur</p>
+
+                        <p class="value">
+                            <span id="currentTemperature">22.4</span>
+                            <span class="unit">°C</span>
+                        </p>
+
+                        <p class="card_info">
+                            Sollwert:
+                            <strong>23 °C</strong>
+                        </p>
+                    </div>
+
+
+                    <div class="card">
+                        <p class="card_title">Luftfeuchtigkeit</p>
+
+                        <p class="value">
+                            <span id="humidityValue">48</span>
+                            <span class="unit">%</span>
+                        </p>
+
+                        <p class="card_info status_good">
+                            Normaler Bereich
+                        </p>
+                    </div>
+
+
+                    <div class="card">
+                        <p class="card_title">Solltemperatur</p>
+
+                        <div class="target_control">
+
+                            <p class="value">
+                                <span id="targetTemperature">23</span>
+                                <span class="unit">°C</span>
+                            </p>
+
+                            <div class="temperature_buttons">
+                                <button id="temperatureUp">+</button>
+                                <button id="temperatureDown">−</button>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </section>
+
+
+                <!-- SYSTEMSTATUS -->
+
+                <section class="status_grid">
+
+                    <div class="status_card">
+                        <p class="status_title">Systemstatus</p>
+                        <p class="status_value green">Aktiv</p>
+                    </div>
+
+                    <div class="status_card">
+                        <p class="status_title">Modus</p>
+                        <p class="status_value">Automatik</p>
+                    </div>
+
+                    <div class="status_card">
+                        <p class="status_title">Lüfter</p>
+                        <p class="status_value">Stufe 2</p>
+                    </div>
+
+                    <div class="status_card">
+                        <p class="status_title">Heizung</p>
+                        <p class="status_value">Aus</p>
+                    </div>
+
+                    <div class="status_card">
+                        <p class="status_title">Sensoren</p>
+                        <p class="status_value green">Verbunden</p>
+                    </div>
+
+                </section>
+
+
+                <!-- SCHNELLSTEUERUNG -->
+
+                <section class="quick_control">
+
+                    <div class="quick_description">
+                        <p class="card_title">Schnellsteuerung</p>
+                        <p>Wichtige Einstellungen direkt anpassen.</p>
+                    </div>
+
+
+                    <div class="control_field">
+                        <label for="modeSelect">Modus</label>
+
+                        <select id="modeSelect">
+                            <option>Automatik</option>
+                            <option>Heizen</option>
+                            <option>Lüften</option>
+                            <option>Aus</option>
+                        </select>
+                    </div>
+
+
+                    <div class="control_field">
+                        <label for="fanSelect">Lüfterstufe</label>
+
+                        <select id="fanSelect">
+                            <option>Aus</option>
+                            <option>Stufe 1</option>
+                            <option selected>Stufe 2</option>
+                            <option>Stufe 3</option>
+                        </select>
+                    </div>
+
+
+                    <button id="applyButton" class="primary_button">
+                        Übernehmen
+                    </button>
+
+                </section>
+
+            </div>
+
+        </main>
+
+    </div>
 
     <script src="script.js"></script>
 
-
-    <div class="layout">
-    <div class="sidebar">
-        <h2>Raumklima</h2>
-        <p class="menu_item active">Dashboard</p>
-        <p class="menu_item">Steuerung</p>
-        <p class="menu_item">Messwerte</p>
-        <p class="menu_item">Einstellungen</p>
-    </div>
-
-
-    <div class="main_content">
-
-        <h1>Klimasystem</h1>
-    <div class="temperatur">
-        <h2>Temperatur</h2>
-        <p class="temperature_value">22.4 °C</p>
-    </div>
-
-    </div>
-    </div>
-   
-
-    
-   
 </body>
-
-</html>
