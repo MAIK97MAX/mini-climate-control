@@ -1,0 +1,603 @@
+/* ========================================
+   GRUNDEINSTELLUNGEN
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --background: #f5f6f7;
+    --sidebar: #20262e;
+    --sidebar-hover: #2a323c;
+
+    --card: #ffffff;
+    --border: #e1e5e8;
+
+    --text: #1f2933;
+    --text-muted: #6b7280;
+
+    --accent: #3f7f68;
+    --accent-light: #e8f1ed;
+}
+
+body {
+    margin: 0;
+
+    background-color: var(--background);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    color: var(--text);
+}
+
+
+/* ========================================
+   HAUPTLAYOUT
+======================================== */
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+.sidebar {
+    width: 240px;
+    min-height: 100vh;
+
+    background-color: var(--sidebar);
+    color: white;
+
+    padding: 28px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    flex-shrink: 0;
+}
+
+
+.brand {
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 0 8px;
+
+    margin-bottom: 38px;
+}
+
+
+.brand_logo {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #55606c;
+    border-radius: 9px;
+
+    color: #8bc2a8;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+.sidebar_title {
+    margin: 0;
+
+    font-size: 18px;
+    font-weight: 600;
+
+    color: #f7f8f9;
+}
+
+
+.brand_subtitle {
+    margin: 3px 0 0;
+
+    font-size: 10px;
+    color: #8f99a5;
+}
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.menu_item {
+    width: 100%;
+
+    border: 0;
+
+    padding: 11px 13px;
+
+    border-radius: 7px;
+
+    background: transparent;
+    color: #cdd3d9;
+
+    font-size: 14px;
+    text-align: left;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.15s,
+        color 0.15s;
+}
+
+
+.menu_item:hover {
+    background-color: var(--sidebar-hover);
+    color: white;
+}
+
+
+.menu_item.active {
+    background-color: var(--accent);
+    color: white;
+
+    font-weight: 600;
+}
+
+
+.sidebar_status {
+    margin-top: auto;
+
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px 8px;
+
+    font-size: 12px;
+    color: #aeb6bf;
+}
+
+
+.status_dot {
+    width: 8px;
+    height: 8px;
+
+    border-radius: 50%;
+
+    background-color: #45a477;
+}
+
+
+/* ========================================
+   HAUPTBEREICH
+======================================== */
+
+.main_content {
+    flex: 1;
+
+    min-width: 0;
+}
+
+
+.topbar {
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 40px;
+
+    background-color: rgba(255, 255, 255, 0.7);
+
+    border-bottom: 1px solid var(--border);
+
+    font-size: 13px;
+}
+
+
+.topbar p {
+    margin: 0;
+
+    color: var(--text-muted);
+}
+
+
+.system_active {
+    display: flex;
+    align-items: center;
+
+    gap: 8px;
+
+    font-size: 12px;
+}
+
+
+.content {
+    width: 100%;
+    max-width: 1250px;
+
+    margin: 0 auto;
+
+    padding: 38px 40px 60px;
+}
+
+
+/* ========================================
+   SEITENÜBERSCHRIFT
+======================================== */
+
+.page_header {
+    margin-bottom: 26px;
+}
+
+
+.page_header h1 {
+    margin: 3px 0 4px;
+
+    font-size: 30px;
+    font-weight: 650;
+
+    letter-spacing: -0.5px;
+}
+
+
+.page_header > p:last-child {
+    margin: 0;
+
+    font-size: 14px;
+
+    color: var(--text-muted);
+}
+
+
+.eyebrow {
+    margin: 0;
+
+    font-size: 11px;
+    font-weight: 700;
+
+    letter-spacing: 1.3px;
+
+    color: var(--accent);
+}
+
+
+/* ========================================
+   HAUPTKARTEN
+======================================== */
+
+.main_values {
+    display: grid;
+
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+
+    gap: 14px;
+
+    margin-bottom: 14px;
+}
+
+
+.card {
+    min-height: 165px;
+
+    padding: 22px;
+
+    background-color: var(--card);
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+}
+
+
+.card_title {
+    margin: 0;
+
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+.value {
+    margin: 24px 0 10px;
+
+    font-size: 38px;
+    font-weight: 650;
+
+    letter-spacing: -1px;
+}
+
+
+.unit {
+    font-size: 22px;
+    font-weight: 500;
+
+    color: var(--text-muted);
+}
+
+
+.card_info {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+}
+
+
+.status_good {
+    color: var(--accent);
+}
+
+
+/* ========================================
+   SOLLTEMPERATUR
+======================================== */
+
+.target_control {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.temperature_buttons {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+
+.temperature_buttons button {
+    width: 34px;
+    height: 30px;
+
+    border: 1px solid var(--border);
+    border-radius: 6px;
+
+    background-color: white;
+
+    color: var(--text);
+
+    cursor: pointer;
+}
+
+
+.temperature_buttons button:hover {
+    background-color: var(--background);
+}
+
+
+/* ========================================
+   STATUSKARTEN
+======================================== */
+
+.status_grid {
+    display: grid;
+
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+
+.status_card {
+    padding: 17px;
+
+    background-color: white;
+
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+
+.status_title {
+    margin: 0 0 14px;
+
+    font-size: 11px;
+
+    color: var(--text-muted);
+}
+
+
+.status_value {
+    margin: 0;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+.status_value.green {
+    color: var(--accent);
+}
+
+
+/* ========================================
+   SCHNELLSTEUERUNG
+======================================== */
+
+.quick_control {
+    display: grid;
+
+    grid-template-columns:
+        minmax(220px, 1.5fr)
+        minmax(140px, 1fr)
+        minmax(140px, 1fr)
+        auto;
+
+    align-items: end;
+
+    gap: 16px;
+
+    padding: 20px;
+
+    background-color: white;
+
+    border: 1px solid var(--border);
+    border-radius: 11px;
+}
+
+
+.quick_description > p:last-child {
+    margin: 6px 0 0;
+
+    font-size: 12px;
+
+    color: var(--text-muted);
+}
+
+
+.control_field {
+    display: flex;
+    flex-direction: column;
+
+    gap: 7px;
+}
+
+
+.control_field label {
+    font-size: 11px;
+
+    color: var(--text-muted);
+}
+
+
+.control_field select {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    border: 1px solid var(--border);
+    border-radius: 7px;
+
+    background-color: white;
+
+    color: var(--text);
+
+    font: inherit;
+
+    cursor: pointer;
+}
+
+
+.primary_button {
+    min-height: 39px;
+
+    padding: 0 22px;
+
+    border: 0;
+    border-radius: 7px;
+
+    background-color: var(--accent);
+    color: white;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+.primary_button:hover {
+    background-color: #356e5a;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .status_grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .quick_control {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ========================================
+   SMARTPHONE
+======================================== */
+
+@media (max-width: 720px) {
+
+    .layout {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-height: auto;
+
+        padding: 16px;
+    }
+
+    .brand {
+        margin-bottom: 16px;
+    }
+
+    .menu {
+        flex-direction: row;
+
+        overflow-x: auto;
+    }
+
+    .menu_item {
+        width: auto;
+
+        white-space: nowrap;
+    }
+
+    .sidebar_status {
+        display: none;
+    }
+
+    .topbar {
+        display: none;
+    }
+
+    .content {
+        padding: 25px 18px 40px;
+    }
+
+    .main_values {
+        grid-template-columns: 1fr;
+    }
+
+    .status_grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .quick_control {
+        grid-template-columns: 1fr;
+    }
+
+}
