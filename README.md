@@ -1,4 +1,4 @@
-# MDM Smart Home Solutions – Smart Climate Control
+# MMD Smart Home Solutions – Smart Climate Control
 
 Embedded climate-control system developed as part of our HTL diploma project.
 
