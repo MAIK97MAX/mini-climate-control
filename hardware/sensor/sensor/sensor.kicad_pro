@@ -63,7 +63,28 @@
           "width": 0.25
         }
       ],
-      "drc_exclusions": [],
+      "drc_exclusions": [
+        [
+          "hole_clearance|155280000|100370000|27a54808-bd83-4e06-a023-4c1d9851a900|b04bdb7b-850b-49d5-8fbf-73ad19c6600d",
+          ""
+        ],
+        [
+          "hole_clearance|155280000|100370000|27a54808-bd83-4e06-a023-4c1d9851a900|d0ca255d-6f9c-4c65-8dc5-f47a9f8db008",
+          ""
+        ],
+        [
+          "hole_clearance|161380000|100370000|79c5c187-ab24-4273-834e-ba16b7194eae|71d936f0-b7bd-4dc6-91c9-7197572fd79f",
+          ""
+        ],
+        [
+          "hole_clearance|161380000|100370000|79c5c187-ab24-4273-834e-ba16b7194eae|efb82936-6657-40ba-9313-86c26c765e70",
+          ""
+        ],
+        [
+          "lib_footprint_mismatch|158140000|81100000|3389a422-12db-4f40-aed1-84ad2302eb78|00000000-0000-0000-0000-000000000000",
+          ""
+        ]
+      ],
       "meta": {
         "version": 2
       },
@@ -512,7 +533,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../gerber_sensor/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -585,14 +606,26 @@
           "label": "Datasheet",
           "name": "Datasheet",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "Beschreibung",
+          "name": "Description",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
       "include_excluded_from_bom": true,
-      "name": "Default Editing",
+      "name": "",
       "sort_asc": true,
-      "sort_field": "Referenz"
+      "sort_field": "Reference"
     },
     "connection_grid_size": 50.0,
     "drawing": {
