@@ -7618,7 +7618,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "df4f6b8d-3c74-4873-b261-552723181894")
-		(property "Reference" "U2"
+		(property "Reference" "U3"
 			(at 97.79 86.106 0)
 			(effects
 				(font
@@ -7679,7 +7679,7 @@
 		(instances
 			(project ""
 				(path "/f34afabc-94c2-4908-a2d7-15814061ac5a"
-					(reference "U2")
+					(reference "U3")
 					(unit 1)
 				)
 			)
