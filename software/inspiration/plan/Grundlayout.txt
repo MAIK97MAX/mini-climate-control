@@ -1,0 +1,38 @@
+Grundlayout
+Sidebar links, Hauptbereich rechts. Das machen wir gerade.
+
+Sidebar fertig machen
+Titel/Logo und Menüpunkte wie:
+- Dashboard
+- Steuerung
+- Messwerte
+- Einstellungen
+
+Dashboard bauen
+Im Hauptbereich kommen die wichtigsten Infos:
+- Temperatur
+- Luftfeuchtigkeit
+- Systemstatus
+- aktueller Modus
+- Lüfterstatus
+
+Design schön machen
+Karten, Abstände, Farben, Schatten, Größen, damit es wie die Referenz aussieht.
+
+Weitere Seiten/Bereiche
+- Steuerung
+- Messwerte
+- Einstellungen
+
+JavaScript
+Erst dann machen wir Funktionen:
+- Solltemperatur ändern
+- Lüfterstufe ändern
+- Modus wechseln
+- System ein/aus
+
+Testwerte
+Wir arbeiten erstmal mit Fake-Werten wie 22.4 °C.
+
+ESP32-Anbindung
+Ganz am Ende ersetzen wir die Fake-Werte durch echte Daten vom ESP32.
