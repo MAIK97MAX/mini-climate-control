@@ -48,7 +48,7 @@
         "silk_text_thickness": 0.1,
         "silk_text_upright": false,
         "zones": {
-          "min_clearance": 0.5
+          "min_clearance": 0.25
         }
       },
       "diff_pair_dimensions": [
@@ -63,28 +63,7 @@
           "width": 0.25
         }
       ],
-      "drc_exclusions": [
-        [
-          "hole_clearance|155280000|100370000|27a54808-bd83-4e06-a023-4c1d9851a900|b04bdb7b-850b-49d5-8fbf-73ad19c6600d",
-          ""
-        ],
-        [
-          "hole_clearance|155280000|100370000|27a54808-bd83-4e06-a023-4c1d9851a900|d0ca255d-6f9c-4c65-8dc5-f47a9f8db008",
-          ""
-        ],
-        [
-          "hole_clearance|161380000|100370000|79c5c187-ab24-4273-834e-ba16b7194eae|71d936f0-b7bd-4dc6-91c9-7197572fd79f",
-          ""
-        ],
-        [
-          "hole_clearance|161380000|100370000|79c5c187-ab24-4273-834e-ba16b7194eae|efb82936-6657-40ba-9313-86c26c765e70",
-          ""
-        ],
-        [
-          "lib_footprint_mismatch|158140000|81100000|3389a422-12db-4f40-aed1-84ad2302eb78|00000000-0000-0000-0000-000000000000",
-          ""
-        ]
-      ],
+      "drc_exclusions": [],
       "meta": {
         "version": 2
       },
@@ -113,8 +92,8 @@
         "item_on_disabled_layer": "error",
         "items_not_allowed": "error",
         "length_out_of_range": "error",
-        "lib_footprint_issues": "warning",
-        "lib_footprint_mismatch": "warning",
+        "lib_footprint_issues": "ignore",
+        "lib_footprint_mismatch": "ignore",
         "malformed_courtyard": "error",
         "microvia_drill_out_of_range": "error",
         "mirrored_text_on_front_layer": "warning",
@@ -534,7 +513,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "../gerber_sensor/",
+      "plot": "gerber_sensor/",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
@@ -618,6 +597,12 @@
           "group_by": false,
           "label": "#",
           "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Sim.Pins",
+          "name": "Sim.Pins",
           "show": false
         }
       ],
